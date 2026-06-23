@@ -271,8 +271,13 @@ def naive_softmax_1d(logits):
     return probs
     pass
 
-# Step 31 - softmax_overflow_demo (not yet solved)
-# TODO: implement
+# Step 31 - softmax_overflow_demo
+import numpy as np
+
+def softmax_overflow_demo(large_value):
+    val = np.exp(large_value)
+    overflowed = not np.isfinite(val)
+    return {"naive_exp": val, "overflowed": overflowed}
 
 # Step 32 - stable_softmax_1d (not yet solved)
 # TODO: implement
