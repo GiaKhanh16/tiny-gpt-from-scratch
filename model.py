@@ -290,8 +290,15 @@ def stable_softmax_1d(logits):
     return exp_vals / denom
     pass
 
-# Step 33 - stable_softmax_2d_rowwise (not yet solved)
-# TODO: implement
+# Step 33 - stable_softmax_2d_rowwise
+import numpy as np
+
+def stable_softmax_2d_rowwise(logits):
+    m = max_along_axis(logits, 1).reshape(-1, 1)
+    shifted = logits - m
+    exp_vals = array_exp(shifted)
+    denom = sum_keepdims(exp_vals, 1)
+    return exp_vals / denom
 
 # Step 34 - read_text_file (not yet solved)
 # TODO: implement
