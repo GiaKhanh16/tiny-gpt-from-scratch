@@ -279,8 +279,16 @@ def softmax_overflow_demo(large_value):
     overflowed = not np.isfinite(val)
     return {"naive_exp": val, "overflowed": overflowed}
 
-# Step 32 - stable_softmax_1d (not yet solved)
-# TODO: implement
+# Step 32 - stable_softmax_1d
+import numpy as np
+
+def stable_softmax_1d(logits):
+    m = max_along_axis(logits,0)
+    shifted = logits - m
+    exp_vals = array_exp(shifted)
+    denom = sum_all(exp_vals)
+    return exp_vals / denom
+    pass
 
 # Step 33 - stable_softmax_2d_rowwise (not yet solved)
 # TODO: implement
