@@ -300,8 +300,17 @@ def stable_softmax_2d_rowwise(logits):
     denom = sum_keepdims(exp_vals, 1)
     return exp_vals / denom
 
-# Step 34 - read_text_file (not yet solved)
-# TODO: implement
+# Step 34 - read_text_file
+def read_text_file(text_blob):
+    """Return text_blob unchanged after validating it is a non-empty string."""
+    if not isinstance(text_blob, str):
+        raise TypeError("Expected string")
+
+    if text_blob.strip() == "":
+        raise ValueError("Empty string")
+
+    return text_blob
+    pass
 
 # Step 35 - encode_corpus_to_int_array (not yet solved)
 # TODO: implement
