@@ -105,8 +105,15 @@ def make_2d_zeros(rows, cols):
     return np.zeros((rows, cols), dtype=np.float64)
     pass
 
-# Step 12 - make_2d_random (not yet solved)
-# TODO: implement
+# Step 12 - make_2d_random
+import numpy as np
+
+def make_2d_random(rows, cols, seed):
+    """Return a (rows, cols) array of uniform floats in [0, 1) seeded by `seed`."""
+    # TODO: build a seeded RNG and draw a (rows, cols) uniform sample in [0, 1).
+    np.random.seed(seed)
+    return np.random.rand(rows,cols)
+    pass
 
 # Step 13 - index_element (not yet solved)
 # TODO: implement
