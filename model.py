@@ -41,14 +41,16 @@ def encode_char(ch, stoi):
     pass
 
 # Step 5 - encode_string
+import numpy as np 
+
 def encode_string(text, stoi):
     """Encode a full string into a list of token ids using stoi."""
     # TODO: map each char in text through stoi (via encode_char) into a list of ids
     result = []
     for i in text:
         result.append(stoi[i])
-
-    return result
+    numpy_array = np.array(result)
+    return numpy_array
     pass
 
 # Step 6 - decode_int
@@ -312,8 +314,20 @@ def read_text_file(text_blob):
     return text_blob
     pass
 
-# Step 35 - encode_corpus_to_int_array (not yet solved)
-# TODO: implement
+# Step 35 - encode_corpus_to_int_array
+import numpy as np
+def encode_corpus_to_int_array(text, stoi):
+    """Convert the corpus string into a 1D NumPy int64 array of token ids."""
+    # TODO: map every character in text through stoi and return as a 1D int64 array
+    return np.array(encode_string(text, stoi))
+
+# >>> stoi = {'a': 0, 'b': 1, 'c': 2}
+# >>> encode_string('cab', stoi)
+# [2, 0, 1]
+# >>> encode_string('', stoi)
+# []
+    
+    pass
 
 # Step 36 - pick_split_point (not yet solved)
 # TODO: implement
