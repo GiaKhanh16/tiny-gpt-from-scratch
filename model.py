@@ -383,7 +383,7 @@ import numpy as np
 def stack_x_batch(data, offsets, block_size):
     """Stack per-offset X windows into a 2D batch matrix (B, block_size)."""
     
-    offsets = np.asarray(offsets)
+ 
     
     # (B, 1) + (block_size,) -> (B, block_size)
     indices = offsets[:, None] + np.arange(block_size)
