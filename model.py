@@ -387,7 +387,7 @@ def stack_x_batch(data, offsets, block_size):
     
     # (B, 1) + (block_size,) -> (B, block_size)
     indices = offsets[:, None] + np.arange(block_size)
-    
+ 
     return data[indices]
 
 # Step 43 - stack_y_batch (not yet solved)
