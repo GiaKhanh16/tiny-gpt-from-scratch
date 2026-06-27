@@ -419,8 +419,11 @@ def allocate_count_matrix(vocab_size):
     
     pass
 
-# Step 46 - loop_fill_counts (not yet solved)
-# TODO: implement
+# Step 46 - loop_fill_counts
+def loop_fill_counts(n_matrix, data):
+    for i in range(len(data) - 1):
+        n_matrix[data[i], data[i+1]] += 1
+    return n_matrix
 
 # Step 47 - vectorize_counts_add_at (not yet solved)
 # TODO: implement
