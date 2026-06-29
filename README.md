@@ -56,15 +56,15 @@ python scaffold.py
 - [x] **44.** get_batch
 - [x] **45.** allocate_count_matrix
 - [x] **46.** loop_fill_counts
-- [ ] **47.** vectorize_counts_add_at
-- [ ] **48.** add_one_smoothing
-- [ ] **49.** row_sums_of_counts
-- [ ] **50.** normalize_counts_to_probs
-- [ ] **51.** sample_next_token
-- [ ] **52.** generate_sequence
-- [ ] **53.** decode_generated_sequence
-- [ ] **54.** log_prob_of_pair
-- [ ] **55.** sum_negative_log_probs
+- [x] **47.** vectorize_counts_add_at
+- [x] **48.** add_one_smoothing
+- [x] **49.** row_sums_of_counts
+- [x] **50.** normalize_counts_to_probs
+- [x] **51.** sample_next_token
+- [x] **52.** generate_sequence
+- [x] **53.** decode_generated_sequence
+- [x] **54.** log_prob_of_pair
+- [x] **55.** sum_negative_log_probs
 - [ ] **56.** average_nll
 - [ ] **57.** initialize_w_random
 - [ ] **58.** scale_w_small

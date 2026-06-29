@@ -425,32 +425,102 @@ def loop_fill_counts(n_matrix, data):
         n_matrix[data[i], data[i+1]] += 1
     return n_matrix
 
-# Step 47 - vectorize_counts_add_at (not yet solved)
-# TODO: implement
+# Step 47 - vectorize_counts_add_at
+import numpy as np
 
-# Step 48 - add_one_smoothing (not yet solved)
-# TODO: implement
+def vectorize_counts_add_at(vocab_size, data):
+    """Build (V, V) bigram counts from a 1D id array using vectorized scatter-add."""
+    counts = allocate_count_matrix(vocab_size)
 
-# Step 49 - row_sums_of_counts (not yet solved)
-# TODO: implement
+    # Add 1 for every consecutive pair (current_id, next_id)
+    np.add.at(counts, (data[:-1], data[1:]), 1)
 
-# Step 50 - normalize_counts_to_probs (not yet solved)
-# TODO: implement
+    return counts.astype(np.int64)
+    pass
 
-# Step 51 - sample_next_token (not yet solved)
-# TODO: implement
+# Step 48 - add_one_smoothing
+import numpy as np
 
-# Step 52 - generate_sequence (not yet solved)
-# TODO: implement
+def add_one_smoothing(n_matrix):
+    """Return n_matrix with every entry incremented by 1 (Laplace smoothing)."""
+    # TODO: apply +1 Laplace smoothing to the bigram count matrix
+    return  n_matrix + 1
+    pass
 
-# Step 53 - decode_generated_sequence (not yet solved)
-# TODO: implement
+# Step 49 - row_sums_of_counts
+def row_sums_of_counts(n_matrix):
+    """Return per-row sums of n_matrix with shape (V, 1)."""
+    # TODO: compute per-row sums of the count matrix as a column vector for normalization.
+    return sum_keepdims(n_matrix, 1)
+    pass
 
-# Step 54 - log_prob_of_pair (not yet solved)
-# TODO: implement
+# Step 50 - normalize_counts_to_probs
+def normalize_counts_to_probs(n_matrix):
+    """Normalize a (V, V) count matrix into a row-stochastic probability matrix."""
+    # TODO: divide each row of n_matrix by its row sum to produce probabilities
+    sumarr = row_sums_of_counts(n_matrix)
+    return n_matrix / sumarr
 
-# Step 55 - sum_negative_log_probs (not yet solved)
-# TODO: implement
+    pass
+
+# Step 51 - sample_next_token
+def sample_next_token(p_matrix, current_id, rng):
+    """Sample the next token id from P[current_id] using rng."""
+    # TODO: draw one categorical sample from the row of p_matrix at current_id
+  
+    probs = p_matrix[current_id]
+    r = rng.random()
+
+    cum = 0.0
+    for i, p in enumerate(probs):
+        cum += p
+        if r < cum:
+            return i
+
+    pass
+
+# Step 52 - generate_sequence
+def generate_sequence(p_matrix, start_id, length, rng):
+    """Autoregressively sample `length` token ids from a bigram matrix, starting with `start_id`."""
+    # TODO: build a length-L int array starting at start_id, then sample each next id from p_matrix
+    sequence = np.zeros(length, dtype=int)
+    sequence[0] = start_id
+    for i in range(1, length):
+        sequence[i] = sample_next_token(p_matrix, sequence[i-1], rng)
+    return sequence
+    pass
+
+# Step 53 - decode_generated_sequence
+def decode_generated_sequence(ids, itos):
+    """Decode a generated 1D array/list of token ids into a string via itos."""
+    # TODO: turn ids into a readable string using itos
+    result = ''
+    for i in ids:
+        result += itos[i]
+
+    return result
+    pass
+
+# Step 54 - log_prob_of_pair
+def log_prob_of_pair(p_matrix, current_id, next_id):
+    """Return the log probability of a single (current, next) bigram."""
+    # TODO: pick out P[current_id, next_id] and return its natural log
+    result = array_log(p_matrix[current_id,next_id])
+    return result
+    pass
+
+# Step 55 - sum_negative_log_probs
+def sum_negative_log_probs(p_matrix, data):
+    # sum the negative log probabilities of all consecutive bigrams in data
+    total = 0.0
+    
+    for i in range(len(data) - 1):
+        current_id = data[i]
+        next_id = data[i + 1]
+        
+        total += -log_prob_of_pair(p_matrix, current_id, next_id)
+    
+    return float(total)
 
 # Step 56 - average_nll (not yet solved)
 # TODO: implement
