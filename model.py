@@ -571,8 +571,37 @@ def forward_logits_onehot(onehot, w_matrix):
     return matmul(onehot, w_matrix)
     pass
 
-# Step 61 - observe_lookup_equivalence (not yet solved)
-# TODO: implement
+# Step 61 - observe_lookup_equivalence
+import numpy as np
+
+def observe_lookup_equivalence(w, ids):
+    """
+    Verify that one-hot matmul and direct indexing produce the same rows.
+
+    Args:
+        w: ndarray of shape (V, V)
+        ids: ndarray of shape (B,) containing integer row indices
+
+    Returns:
+        dict with:
+            'onehot_result': (B, V) ndarray
+            'index_result': (B, V) ndarray
+    """
+    V = w.shape[0]
+
+    # One-hot encode ids
+    onehot = np.eye(V, dtype=w.dtype)[ids]
+
+    # Route one-hot vectors through matrix multiplication
+    onehot_result = onehot @ w
+
+    # Direct row lookup
+    index_result = w[ids]
+
+    return {
+        "onehot_result": onehot_result,
+        "index_result": index_result,
+    }
 
 # Step 62 - forward_logits_lookup (not yet solved)
 # TODO: implement
