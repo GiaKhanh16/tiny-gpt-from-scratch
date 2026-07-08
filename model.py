@@ -610,8 +610,15 @@ def forward_logits_lookup(w, ids):
     return w[ids]
     pass
 
-# Step 63 - logits_to_probs_rowwise (not yet solved)
-# TODO: implement
+# Step 63 - logits_to_probs_rowwise
+import numpy as np
+
+def logits_to_probs_rowwise(logits):
+    # logits: (B, V)
+    shifted = logits - np.max(logits, axis=1, keepdims=True)
+    exp = np.exp(shifted)
+    probs = exp / np.sum(exp, axis=1, keepdims=True)
+    return probs
 
 # Step 64 - gather_correct_token_probs (not yet solved)
 # TODO: implement
