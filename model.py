@@ -620,8 +620,12 @@ def logits_to_probs_rowwise(logits):
     probs = exp / np.sum(exp, axis=1, keepdims=True)
     return probs
 
-# Step 64 - gather_correct_token_probs (not yet solved)
-# TODO: implement
+# Step 64 - gather_correct_token_probs
+def gather_correct_token_probs(probs, targets):
+    out = []
+    for i in range(len(targets)):
+        out.append(probs[i][targets[i]])
+    return np.array(out)
 
 # Step 65 - cross_entropy_loss (not yet solved)
 # TODO: implement
