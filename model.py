@@ -606,9 +606,7 @@ def observe_lookup_equivalence(w, ids):
 # Step 62 - forward_logits_lookup
 def forward_logits_lookup(w, ids):
     """Return logits (B, V) by gathering rows of w at positions ids."""
-    # TODO: return the logits for a batch of token ids by direct row lookup into W.
     return w[ids]
-    pass
 
 # Step 63 - logits_to_probs_rowwise
 import numpy as np
@@ -681,8 +679,24 @@ def sgd_update_w(w, dw, learning_rate):
     return np.array(w - learning_rate * dw)
     pass
 
-# Step 71 - run_one_training_step (not yet solved)
-# TODO: implement
+# Step 71 - run_one_training_step
+def run_one_training_step(w, ids, targets, learning_rate):
+    logits = forward_logits_lookup(w, ids)
+
+    probs = logits_to_probs_rowwise(logits)
+
+    loss = cross_entropy_loss(probs, targets)
+
+    dlogits = compute_dlogits(probs, targets)
+
+    dw = compute_dw_scatter_add(ids, dlogits, w.shape[0])
+
+    new_w = sgd_update_w(w, dw, learning_rate)
+
+    return {
+        "w": new_w,
+        "loss": float(loss)
+    }
 
 # Step 72 - train_neural_bigram_loop (not yet solved)
 # TODO: implement
