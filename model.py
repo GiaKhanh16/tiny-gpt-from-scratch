@@ -722,8 +722,30 @@ def train_neural_bigram_loop(w, data, block_size, batch_size, learning_rate, num
         "loss_history": loss_history
     }
 
-# Step 73 - sample_from_neural_bigram (not yet solved)
-# TODO: implement
+# Step 73 - sample_from_neural_bigram
+def sample_from_neural_bigram(W, start_id, num_tokens, itos):
+    """
+    Autoregressively generate a string from a trained neural-bigram weight matrix W.
+    """
+    ids = [start_id]
+    current_id = start_id
+
+    for _ in range(num_tokens):
+        # Compute logits for the current token
+        logits = forward_logits_lookup(W, np.array([current_id]))
+
+        # Convert logits to probabilities
+        probs = logits_to_probs_rowwise(logits)[0]
+
+        # Sample next token
+        next_id = np.random.choice(len(probs), p=probs)
+
+        # Append and feed back
+        ids.append(next_id)
+        current_id = next_id
+
+    # Decode full sequence including start token
+    return decode_ids(ids, itos)
 
 # Step 74 - linear_forward (not yet solved)
 # TODO: implement
